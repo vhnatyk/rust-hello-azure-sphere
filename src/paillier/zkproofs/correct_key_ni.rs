@@ -111,7 +111,11 @@ mod tests {
     use paillier::KeyGeneration;
     use paillier::Paillier;
 
-    #[test]
+    #[cfg(target_arch = "wasm32")]
+    use wasm_bindgen_test::*;
+
+
+    #[wasm_bindgen_test]
     fn test_correct_zk_proof() {
         let (ek, dk) = Paillier::keypair().keys();
         let proof = NICorrectKeyProof::proof(&dk);

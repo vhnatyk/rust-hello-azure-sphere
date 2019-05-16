@@ -33,27 +33,26 @@ mod tests {
     #[cfg(target_arch = "wasm32")]
     use wasm_bindgen_test::*;
 
-    #[test]
+    #[wasm_bindgen_test]
     fn test_keygen_t1_n2() {
         keygen_t_n_parties(1, 2);
     }
 
     #[wasm_bindgen_test]
-    #[test]
     fn test_keygen_t2_n3() {
         keygen_t_n_parties(2, 3);
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     fn test_keygen_t2_n4() {
         keygen_t_n_parties(2, 4);
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     fn test_sign_n5_t2_ttag4() {
         sign(2, 5, 4, vec![0, 2, 3, 4])
     }
-    #[test]
+    #[wasm_bindgen_test]
     fn test_sign_n8_t4_ttag6() {
         sign(4, 8, 6, vec![0, 1, 2, 4, 6, 7])
     }
@@ -155,7 +154,7 @@ mod tests {
         )
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     fn test_mta() {
         let alice_input: FE = ECScalar::new_random();
         let keypair = Paillier::keypair();

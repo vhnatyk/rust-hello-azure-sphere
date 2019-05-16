@@ -240,7 +240,10 @@ mod tests {
     use curv::cryptographic_primitives::secret_sharing::feldman_vss::*;
     use curv::elliptic::curves::secp256_k1::{FE, GE};
 
-    #[test]
+    #[cfg(target_arch = "wasm32")]
+    use wasm_bindgen_test::*;
+
+    #[wasm_bindgen_test]
     fn test_secret_sharing_3_out_of_5_at_indices() {
         let secret: FE = ECScalar::new_random();
         let parties = [1, 2, 4, 5, 6];
@@ -257,7 +260,7 @@ mod tests {
         assert_eq!(secret, secret_reconstructed);
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     fn test_secret_sharing_3_out_of_5() {
         let secret: FE = ECScalar::new_random();
 
@@ -299,7 +302,7 @@ mod tests {
         assert_eq!(w, secret_reconstructed);
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     fn test_secret_sharing_3_out_of_7() {
         let secret: FE = ECScalar::new_random();
 
@@ -336,7 +339,7 @@ mod tests {
         assert_eq!(w, secret_reconstructed);
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     fn test_secret_sharing_1_out_of_2() {
         let secret: FE = ECScalar::new_random();
 
@@ -365,7 +368,7 @@ mod tests {
         assert_eq!(w, secret_reconstructed);
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     fn test_secret_sharing_1_out_of_3() {
         let secret: FE = ECScalar::new_random();
 

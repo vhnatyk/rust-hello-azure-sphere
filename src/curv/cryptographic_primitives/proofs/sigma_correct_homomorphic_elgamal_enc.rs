@@ -82,7 +82,11 @@ impl HomoELGamalProof {
 mod tests {
     use curv::cryptographic_primitives::proofs::sigma_correct_homomorphic_elgamal_enc::*;
     use curv::elliptic::curves::secp256_k1::{FE, GE};
-    #[test]
+
+    #[cfg(target_arch = "wasm32")]
+    use wasm_bindgen_test::*;
+    
+    #[wasm_bindgen_test]
     fn test_correct_general_homo_elgamal() {
         let witness = HomoElGamalWitness {
             r: ECScalar::new_random(),
@@ -100,7 +104,7 @@ mod tests {
         assert!(proof.verify(&delta).is_ok());
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     fn test_correct_homo_elgamal() {
         let witness = HomoElGamalWitness {
             r: FE::new_random(),
@@ -122,7 +126,7 @@ mod tests {
         assert!(proof.verify(&delta).is_ok());
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     #[should_panic]
     fn test_wrong_homo_elgamal() {
         // test for E = (r+1)G

@@ -605,7 +605,11 @@ mod tests {
     use curv::elliptic::curves::traits::ECScalar;
     use serde_json;
     use ErrorKey;
-    #[test]
+
+    #[cfg(target_arch = "wasm32")]
+    use wasm_bindgen_test::*;
+
+    #[wasm_bindgen_test]
     fn serialize_sk() {
         let scalar: Secp256k1Scalar = ECScalar::from(&BigInt::from(123456 as u32));
         println!("TEST4 {:?}", scalar.clone());
@@ -613,7 +617,7 @@ mod tests {
         assert_eq!(s, "\"1e240\"");
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     fn serialize_rand_pk_verify_pad() {
         let vx = BigInt::from_hex(
             &"ccaf75ab7960a01eb421c0e2705f6e84585bd0a094eb6af928c892a4a2912508".to_string(),
@@ -642,7 +646,7 @@ mod tests {
         assert_eq!(r.y_coor().unwrap(), r_expected.y_coor().unwrap());
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     fn deserialize_sk() {
         let s = "\"1e240\"";
         let dummy: Secp256k1Scalar = serde_json::from_str(s).expect("Failed in serialization");
@@ -652,7 +656,7 @@ mod tests {
         assert_eq!(dummy, sk);
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     fn serialize_pk() {
         let pk = Secp256k1Point::generator();
         let x = pk.x_coor().unwrap();
@@ -666,7 +670,7 @@ mod tests {
         assert_eq!(des_pk.ge, pk.ge);
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     fn test_serdes_pk() {
         let pk = GE::generator();
         let s = serde_json::to_string(&pk).expect("Failed in serialization");
@@ -679,7 +683,7 @@ mod tests {
         assert_eq!(des_pk, pk);
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     #[should_panic]
     fn test_serdes_bad_pk() {
         let pk = GE::generator();
@@ -690,7 +694,7 @@ mod tests {
         assert_eq!(des_pk, pk);
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     fn test_from_bytes() {
         let g = Secp256k1Point::generator();
         let hash = HSha256::create_hash(&vec![&g.bytes_compressed_to_big_int()]);
@@ -699,7 +703,7 @@ mod tests {
         assert_eq!(result.unwrap_err(), ErrorKey::InvalidPublicKey)
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     fn test_from_bytes_3() {
         let test_vec = [
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -709,7 +713,7 @@ mod tests {
         assert!(result.is_ok() | result.is_err())
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     fn test_from_bytes_4() {
         let test_vec = [
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6,
@@ -718,7 +722,7 @@ mod tests {
         assert!(result.is_ok() | result.is_err())
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     fn test_from_bytes_5() {
         let test_vec = [
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5,
@@ -730,7 +734,7 @@ mod tests {
         assert!(result.is_ok() | result.is_err())
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     fn test_minus_point() {
         let a: FE = ECScalar::new_random();
         let b: FE = ECScalar::new_random();
@@ -748,7 +752,7 @@ mod tests {
         assert_eq!(point_ab1.get_element(), point_ab2.get_element());
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     fn test_invert() {
         let a: FE = ECScalar::new_random();
         let a_bn = a.to_big_int();
@@ -758,7 +762,7 @@ mod tests {
         assert_eq!(a_inv_bn_1, a_inv_bn_2);
     }
 
-    #[test]
+    #[wasm_bindgen_test]
     fn test_scalar_mul_scalar() {
         let a: FE = ECScalar::new_random();
         let b: FE = ECScalar::new_random();

@@ -91,7 +91,10 @@ mod tests {
     use curv::cryptographic_primitives::proofs::sigma_dlog::*;
     use curv::elliptic::curves::secp256_k1::FE;
 
-    #[test]
+    #[cfg(target_arch = "wasm32")]
+    use wasm_bindgen_test::*;
+
+    #[wasm_bindgen_test]
     fn test_dlog_proof() {
         let witness: FE = ECScalar::new_random();
         let dlog_proof = DLogProof::prove(&witness);
