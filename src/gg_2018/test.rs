@@ -18,7 +18,6 @@
 
 #[cfg(test)]
 mod tests {
-
     use curv::arithmetic::num_bigint::from;
     use curv::cryptographic_primitives::hashing::hash_sha256::HSha256;
     use curv::cryptographic_primitives::hashing::traits::Hash;
@@ -31,11 +30,15 @@ mod tests {
     use gg_2018::party_i::*;
     use paillier::*;
 
+    #[cfg(target_arch = "wasm32")]
+    use wasm_bindgen_test::*;
+
     #[test]
     fn test_keygen_t1_n2() {
         keygen_t_n_parties(1, 2);
     }
 
+    #[wasm_bindgen_test]
     #[test]
     fn test_keygen_t2_n3() {
         keygen_t_n_parties(2, 3);
