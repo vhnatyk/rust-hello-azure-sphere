@@ -48,5 +48,7 @@ pub enum ErrorSS {
 }
 
 #[cfg(target_arch = "wasm32")]
-#[cfg(test)]
+extern crate wasm_bindgen;
+
+#[cfg(all(test, target_arch = "wasm32"))]
 extern crate wasm_bindgen_test;

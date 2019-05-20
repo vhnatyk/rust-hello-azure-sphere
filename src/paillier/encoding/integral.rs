@@ -335,7 +335,7 @@ mod tests {
         Keypair { p, q }
     }
 
-    #[wasm_bindgen_test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
     fn test_scalar_encrypt_decrypt() {
         let (ek, dk) = test_keypair().keys();
 
@@ -346,7 +346,7 @@ mod tests {
         assert_eq!(recovered_m, m);
     }
 
-    #[wasm_bindgen_test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
     fn test_vector_encrypt_decrypt() {
         let (ek, dk) = test_keypair().keys();
 
@@ -357,7 +357,7 @@ mod tests {
         assert_eq!(recovered_m, m);
     }
 
-    #[wasm_bindgen_test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
     fn test_scalar_add_plaintext_scalar() {
         let (ek, dk) = test_keypair().keys();
 
@@ -369,7 +369,7 @@ mod tests {
         assert_eq!(m, 30);
     }
 
-    #[wasm_bindgen_test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
     fn test_scalar_add_ciphertext_scalar() {
         let (ek, dk) = test_keypair().keys();
 
@@ -381,7 +381,7 @@ mod tests {
         assert_eq!(m, 30);
     }
 
-    #[wasm_bindgen_test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
     fn test_vector_add_plaintext_vector() {
         let (ek, dk) = test_keypair().keys();
 
@@ -395,7 +395,7 @@ mod tests {
         assert_eq!(m, vec![4, 4, 4]);
     }
 
-    // #[wasm_bindgen_test]
+    // #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
     // fn test_add_vector_scalar() {
     //     let (ek, dk) = test_keypair().keys();
 
@@ -409,7 +409,7 @@ mod tests {
     //     assert_eq!(m, vec![2, 4, 6]);
     // }
 
-    // #[wasm_bindgen_test]
+    // #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
     // fn test_add_scalar_vector() {
     //     let (ek, dk) = test_keypair().keys();
 
@@ -423,7 +423,7 @@ mod tests {
     //     assert_eq!(m, vec![2, 4, 6]);
     // }
 
-    #[wasm_bindgen_test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
     fn test_scalar_mul_plaintext_scalar() {
         let (ek, dk) = test_keypair().keys();
 
@@ -433,7 +433,7 @@ mod tests {
         assert_eq!(m, 200);
     }
 
-    #[wasm_bindgen_test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
     fn test_vector_mul_plaintext_scalar() {
         let (ek, dk) = test_keypair().keys();
 

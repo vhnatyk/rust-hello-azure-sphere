@@ -56,7 +56,7 @@ where
 use wasm_bindgen_test::*;
 
 #[cfg(test)]
-#[wasm_bindgen_test]
+#[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
 fn test_pack() {
     let v: Vec<u64> = vec![1, 2, 3];
 

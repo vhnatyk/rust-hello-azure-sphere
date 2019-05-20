@@ -80,13 +80,15 @@ impl HomoELGamalProof {
 
 #[cfg(test)]
 mod tests {
+    use std::error::Error;
     use curv::cryptographic_primitives::proofs::sigma_correct_homomorphic_elgamal_enc::*;
+    use curv::cryptographic_primitives::proofs::PROOF_ERROR_DESCRIPTION;
     use curv::elliptic::curves::secp256_k1::{FE, GE};
 
     #[cfg(target_arch = "wasm32")]
     use wasm_bindgen_test::*;
     
-    #[wasm_bindgen_test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
     fn test_correct_general_homo_elgamal() {
         let witness = HomoElGamalWitness {
             r: ECScalar::new_random(),
@@ -104,7 +106,7 @@ mod tests {
         assert!(proof.verify(&delta).is_ok());
     }
 
-    #[wasm_bindgen_test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test] 
     fn test_correct_homo_elgamal() {
         let witness = HomoElGamalWitness {
             r: FE::new_random(),
@@ -125,9 +127,8 @@ mod tests {
         let proof = HomoELGamalProof::prove(&witness, &delta);
         assert!(proof.verify(&delta).is_ok());
     }
-
-    #[wasm_bindgen_test]
-    #[should_panic]
+    
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
     fn test_wrong_homo_elgamal() {
         // test for E = (r+1)G
         let witness = HomoElGamalWitness {
@@ -143,7 +144,7 @@ mod tests {
         let E = &G * &witness.r + G.clone();
         let delta = HomoElGamalStatement { G, H, Y, D, E };
         let proof = HomoELGamalProof::prove(&witness, &delta);
-        assert!(proof.verify(&delta).is_ok());
+        let result = proof.verify(&delta);
+        assert_eq!(result.unwrap_err().description(), PROOF_ERROR_DESCRIPTION);
     }
-
 }
