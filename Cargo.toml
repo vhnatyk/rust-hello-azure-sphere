@@ -32,3 +32,10 @@ zeroize = "0.5.2"
 
 libsecp256k1 = "0.2.2"
 
+[dev-dependencies]
+criterion = "0.2"
+
+[[bench]]
+name = "keygen"
+path = "benches/gg_2018/keygen.rs"
+harness = false
