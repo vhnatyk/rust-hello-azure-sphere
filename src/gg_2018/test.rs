@@ -16,46 +16,11 @@
     @license GPL-3.0+ <https://github.com/KZen-networks/multi-party-ecdsa/blob/master/LICENSE>
 */
 
-#[cfg(test)]
-mod tests {
-    use curv::arithmetic::num_bigint::from;
-    use curv::cryptographic_primitives::hashing::hash_sha256::HSha256;
-    use curv::cryptographic_primitives::hashing::traits::Hash;
-    use curv::cryptographic_primitives::proofs::sigma_dlog::DLogProof;
     use curv::cryptographic_primitives::secret_sharing::feldman_vss::VerifiableSS;
     use curv::elliptic::curves::secp256_k1::{FE, GE};
     use curv::elliptic::curves::traits::*;
 
-    use gg_2018::mta::*;
     use gg_2018::party_i::*;
-    use paillier::*;
-
-    #[cfg(target_arch = "wasm32")]
-    use wasm_bindgen_test::*;
-
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
-    fn test_keygen_t1_n2() {
-        keygen_t_n_parties(1, 2);
-    }
-
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
-    fn test_keygen_t2_n3() {
-        keygen_t_n_parties(2, 3);
-    }
-
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
-    fn test_keygen_t2_n4() {
-        keygen_t_n_parties(2, 4);
-    }
-
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
-    fn test_sign_n5_t2_ttag4() {
-        sign(2, 5, 4, vec![0, 2, 3, 4])
-    }
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
-    fn test_sign_n8_t4_ttag6() {
-        sign(4, 8, 6, vec![0, 1, 2, 4, 6, 7])
-    }
 
     pub fn keygen_t_n_parties(
         t: usize,
@@ -154,6 +119,46 @@ mod tests {
         )
     }
 
+#[cfg(test)]
+pub mod tests {
+    use curv::arithmetic::num_bigint::from;
+    use curv::cryptographic_primitives::hashing::hash_sha256::HSha256;
+    use curv::cryptographic_primitives::hashing::traits::Hash;
+    use curv::cryptographic_primitives::proofs::sigma_dlog::DLogProof;
+    use curv::elliptic::curves::secp256_k1::{FE, GE};
+    use curv::elliptic::curves::traits::*;
+
+    use gg_2018::mta::*;
+    use gg_2018::party_i::*;
+    use paillier::*;
+
+    #[cfg(target_arch = "wasm32")]
+    use wasm_bindgen_test::*;
+
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    fn test_keygen_t1_n2() {
+        super::keygen_t_n_parties(1, 2);
+    }
+
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    fn test_keygen_t2_n3() {
+        super::keygen_t_n_parties(2, 3);
+    }
+
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    fn test_keygen_t2_n4() {
+        super::keygen_t_n_parties(2, 4);
+    }
+
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    fn test_sign_n5_t2_ttag4() {
+        sign(2, 5, 4, vec![0, 2, 3, 4])
+    }
+
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    fn test_sign_n8_t4_ttag6() {
+        sign(4, 8, 6, vec![0, 1, 2, 4, 6, 7])
+    }
     #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
     fn test_mta() {
         let alice_input: FE = ECScalar::new_random();
@@ -180,7 +185,7 @@ mod tests {
     fn sign(t: usize, n: usize, ttag: usize, s: Vec<usize>) {
         // full key gen emulation
         let (party_keys_vec, shared_keys_vec, _pk_vec, y, vss_scheme) =
-            keygen_t_n_parties(t.clone(), n);
+            super::keygen_t_n_parties(t.clone(), n);
 
         let private_vec = (0..shared_keys_vec.len())
             .map(|i| {
