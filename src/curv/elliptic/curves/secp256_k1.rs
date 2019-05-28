@@ -17,13 +17,6 @@
 //
 
 use super::rand::{thread_rng, Rng};
-// use super::secp256k1::util::{
-//     // CURVE_ORDER,
-//     // GENERATOR_X,
-//     // GENERATOR_Y,
-//     SECRET_KEY_SIZE,
-//     RAW_PUBLIC_KEY_SIZE,
-// };
 use super::secp256k1::{PublicKey, SecretKey};
 use super::traits::{ECPoint, ECScalar};
 use curv::arithmetic::num_bigint::from;

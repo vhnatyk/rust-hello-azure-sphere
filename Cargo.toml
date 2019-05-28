@@ -37,5 +37,10 @@ criterion = "0.2"
 
 [[bench]]
 name = "keygen"
-path = "benches/gg_2018/keygen.rs"
+path = "tests/keygen.rs"
+harness = false
+
+[[bench]]
+name = "sign"
+path = "tests/sign.rs"
 harness = false
