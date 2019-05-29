@@ -18,20 +18,20 @@
 
 use super::rand::{thread_rng, Rng};
 // use super::secp256k1::util::{
-//     // CURVE_ORDER, 
-//     // GENERATOR_X, 
-//     // GENERATOR_Y, 
-//     SECRET_KEY_SIZE, 
+//     // CURVE_ORDER,
+//     // GENERATOR_X,
+//     // GENERATOR_Y,
+//     SECRET_KEY_SIZE,
 //     RAW_PUBLIC_KEY_SIZE,
 // };
-use curv::cryptographic_primitives::hashing::constants::{
-    CURVE_ORDER, GENERATOR_X, GENERATOR_Y, SECRET_KEY_SIZE, UNCOMPRESSED_PUBLIC_KEY_SIZE,
-};
 use super::secp256k1::{PublicKey, SecretKey};
 use super::traits::{ECPoint, ECScalar};
 use curv::arithmetic::num_bigint::from;
 use curv::arithmetic::num_bigint::BigInt;
 use curv::arithmetic::traits::{Converter, Modulo};
+use curv::cryptographic_primitives::hashing::constants::{
+    CURVE_ORDER, GENERATOR_X, GENERATOR_Y, SECRET_KEY_SIZE, UNCOMPRESSED_PUBLIC_KEY_SIZE,
+};
 use curv::cryptographic_primitives::hashing::hash_sha256::HSha256;
 use curv::cryptographic_primitives::hashing::traits::Hash;
 use num_traits::Num;
@@ -70,8 +70,8 @@ impl Secp256k1Scalar {
     pub fn copy(&self) -> Secp256k1Scalar {
         Secp256k1Scalar {
             purpose: self.purpose,
-            fe: self.fe.clone()
-        } 
+            fe: self.fe.clone(),
+        }
     }
 }
 
@@ -111,8 +111,8 @@ impl Secp256k1Point {
     pub fn copy(&self) -> Secp256k1Point {
         Secp256k1Point {
             purpose: self.purpose,
-            ge: self.ge.clone()
-        } 
+            ge: self.ge.clone(),
+        }
     }
 }
 
@@ -329,7 +329,7 @@ impl ECPoint<PK, SK> for Secp256k1Point {
     fn bytes_compressed_to_big_int(&self) -> BigInt {
         let mut serial = self.ge.serialize();
         let y_coor_last_byte = serial[64].clone();
-        let y_coor_parity = (y_coor_last_byte << 7) >>7;
+        let y_coor_parity = (y_coor_last_byte << 7) >> 7;
         let mut compressed = vec![2 + y_coor_parity];
         compressed.append(&mut serial[1..33].to_vec());
         from(&compressed)
@@ -610,7 +610,8 @@ mod tests {
     #[cfg(target_arch = "wasm32")]
     use wasm_bindgen_test::*;
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn serialize_sk() {
         let scalar: Secp256k1Scalar = ECScalar::from(&BigInt::from(123456 as u32));
         println!("TEST4 {:?}", scalar.clone());
@@ -618,7 +619,8 @@ mod tests {
         assert_eq!(s, "\"1e240\"");
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn serialize_rand_pk_verify_pad() {
         let vx = BigInt::from_hex(
             &"ccaf75ab7960a01eb421c0e2705f6e84585bd0a094eb6af928c892a4a2912508".to_string(),
@@ -647,7 +649,8 @@ mod tests {
         assert_eq!(r.y_coor().unwrap(), r_expected.y_coor().unwrap());
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn deserialize_sk() {
         let s = "\"1e240\"";
         let dummy: Secp256k1Scalar = serde_json::from_str(s).expect("Failed in serialization");
@@ -657,7 +660,8 @@ mod tests {
         assert_eq!(dummy, sk);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn serialize_pk() {
         let pk = Secp256k1Point::generator();
         let x = pk.x_coor().unwrap();
@@ -671,7 +675,8 @@ mod tests {
         assert_eq!(des_pk.ge, pk.ge);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_serdes_pk() {
         let pk = GE::generator();
         let s = serde_json::to_string(&pk).expect("Failed in serialization");
@@ -683,9 +688,10 @@ mod tests {
         let des_pk: GE = serde_json::from_str(&s).expect("Failed in deserialization");
         assert_eq!(des_pk, pk);
     }
-    
-   #[cfg_attr(target_arch = "wasm32", ignore)] //TODO: switch `ignore` to `wasm_bindgen_test` once wasm can catch
-   #[cfg_attr(not(target_arch = "wasm32"), should_panic)] #[test]
+
+    #[cfg_attr(target_arch = "wasm32", ignore)] //TODO: switch `ignore` to `wasm_bindgen_test` once wasm can catch
+    #[cfg_attr(not(target_arch = "wasm32"), should_panic)]
+    #[test]
     fn test_serdes_bad_pk() {
         let pk = GE::generator();
         let s = serde_json::to_string(&pk).expect("Failed in serialization");
@@ -695,7 +701,8 @@ mod tests {
         assert_eq!(des_pk, pk);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_from_bytes() {
         let g = Secp256k1Point::generator();
         let hash = HSha256::create_hash(&vec![&g.bytes_compressed_to_big_int()]);
@@ -704,7 +711,8 @@ mod tests {
         assert_eq!(result.unwrap_err(), ErrorKey::InvalidPublicKey)
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_from_bytes_3() {
         let test_vec = [
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -714,7 +722,8 @@ mod tests {
         assert!(result.is_ok() | result.is_err())
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_from_bytes_4() {
         let test_vec = [
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6,
@@ -723,7 +732,8 @@ mod tests {
         assert!(result.is_ok() | result.is_err())
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_from_bytes_5() {
         let test_vec = [
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5,
@@ -735,7 +745,8 @@ mod tests {
         assert!(result.is_ok() | result.is_err())
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_minus_point() {
         let a: FE = ECScalar::new_random();
         let b: FE = ECScalar::new_random();
@@ -753,7 +764,8 @@ mod tests {
         assert_eq!(point_ab1.get_element(), point_ab2.get_element());
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_invert() {
         let a: FE = ECScalar::new_random();
         let a_bn = a.to_big_int();
@@ -763,7 +775,8 @@ mod tests {
         assert_eq!(a_inv_bn_1, a_inv_bn_2);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_scalar_mul_scalar() {
         let a: FE = ECScalar::new_random();
         let b: FE = ECScalar::new_random();

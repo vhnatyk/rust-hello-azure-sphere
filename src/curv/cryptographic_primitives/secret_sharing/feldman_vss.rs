@@ -40,7 +40,9 @@ impl VerifiableSS {
         let secret_shares = VerifiableSS::evaluate_polynomial(&poly, &index_vec);
 
         let G: GE = ECPoint::generator();
-        let commitments = (0..poly.len()).map(|i| G.clone() * poly[i].clone()).collect::<Vec<GE>>();
+        let commitments = (0..poly.len())
+            .map(|i| G.clone() * poly[i].clone())
+            .collect::<Vec<GE>>();
         (
             VerifiableSS {
                 parameters: ShamirSecretSharing {
@@ -195,7 +197,9 @@ impl VerifiableSS {
         let mut comm_iterator = self.commitments.iter().rev();
         let head = comm_iterator.next().unwrap();
         let tail = comm_iterator;
-        let comm_to_point = tail.fold(head.clone(), |acc, x: &GE| x.clone() + acc * index_fe.clone());
+        let comm_to_point = tail.fold(head.clone(), |acc, x: &GE| {
+            x.clone() + acc * index_fe.clone()
+        });
         comm_to_point
     }
 
@@ -243,7 +247,8 @@ mod tests {
     #[cfg(target_arch = "wasm32")]
     use wasm_bindgen_test::*;
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_secret_sharing_3_out_of_5_at_indices() {
         let secret: FE = ECScalar::new_random();
         let parties = [1, 2, 4, 5, 6];
@@ -260,7 +265,8 @@ mod tests {
         assert_eq!(secret, secret_reconstructed);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_secret_sharing_3_out_of_5() {
         let secret: FE = ECScalar::new_random();
 
@@ -302,7 +308,8 @@ mod tests {
         assert_eq!(w, secret_reconstructed);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_secret_sharing_3_out_of_7() {
         let secret: FE = ECScalar::new_random();
 
@@ -339,7 +346,8 @@ mod tests {
         assert_eq!(w, secret_reconstructed);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_secret_sharing_1_out_of_2() {
         let secret: FE = ECScalar::new_random();
 
@@ -368,7 +376,8 @@ mod tests {
         assert_eq!(w, secret_reconstructed);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_secret_sharing_1_out_of_3() {
         let secret: FE = ECScalar::new_random();
 

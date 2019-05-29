@@ -114,8 +114,8 @@ mod tests {
     #[cfg(target_arch = "wasm32")]
     use wasm_bindgen_test::*;
 
-
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_correct_zk_proof() {
         let (ek, dk) = Paillier::keypair().keys();
         let proof = NICorrectKeyProof::proof(&dk);

@@ -525,7 +525,8 @@ mod tests {
         Keypair { p, q }
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_correct_encryption_decryption() {
         let (ek, dk) = test_keypair().keys();
 
@@ -536,7 +537,8 @@ mod tests {
         assert_eq!(recovered_p, p);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_correct_opening() {
         let (ek, dk) = test_keypair().keys();
 
@@ -546,7 +548,8 @@ mod tests {
         assert_eq!(c, d);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_correct_addition() {
         let (ek, dk) = test_keypair().keys();
 
@@ -560,7 +563,8 @@ mod tests {
         assert_eq!(m, BigInt::from(30 as u16).into());
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn correct_multiplication() {
         let (ek, dk) = test_keypair().keys();
 
@@ -574,7 +578,8 @@ mod tests {
     }
 
     #[cfg(feature = "keygen")]
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_correct_keygen() {
         let (ek, dk): (EncryptionKey, _) = Paillier::keypair_with_modulus_size(2048).keys();
 
@@ -585,7 +590,8 @@ mod tests {
         assert_eq!(recovered_m, m);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_key_serialization() {
         let (ek, dk) = test_keypair().keys();
 
@@ -598,7 +604,8 @@ mod tests {
         assert_eq!(dk, dk_recovered);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_failing_deserialize() {
         let illformatted = "{\"n\":\"12345abcdef\"}";
 

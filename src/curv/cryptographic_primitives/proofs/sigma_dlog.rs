@@ -94,7 +94,8 @@ mod tests {
     #[cfg(target_arch = "wasm32")]
     use wasm_bindgen_test::*;
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_dlog_proof() {
         let witness: FE = ECScalar::new_random();
         let dlog_proof = DLogProof::prove(&witness);

@@ -335,7 +335,8 @@ mod tests {
         Keypair { p, q }
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_scalar_encrypt_decrypt() {
         let (ek, dk) = test_keypair().keys();
 
@@ -346,7 +347,8 @@ mod tests {
         assert_eq!(recovered_m, m);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_vector_encrypt_decrypt() {
         let (ek, dk) = test_keypair().keys();
 
@@ -357,7 +359,8 @@ mod tests {
         assert_eq!(recovered_m, m);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_scalar_add_plaintext_scalar() {
         let (ek, dk) = test_keypair().keys();
 
@@ -369,7 +372,8 @@ mod tests {
         assert_eq!(m, 30);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_scalar_add_ciphertext_scalar() {
         let (ek, dk) = test_keypair().keys();
 
@@ -381,7 +385,8 @@ mod tests {
         assert_eq!(m, 30);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_vector_add_plaintext_vector() {
         let (ek, dk) = test_keypair().keys();
 
@@ -423,7 +428,8 @@ mod tests {
     //     assert_eq!(m, vec![2, 4, 6]);
     // }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_scalar_mul_plaintext_scalar() {
         let (ek, dk) = test_keypair().keys();
 
@@ -433,7 +439,8 @@ mod tests {
         assert_eq!(m, 200);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_vector_mul_plaintext_scalar() {
         let (ek, dk) = test_keypair().keys();
 

@@ -55,7 +55,8 @@ mod tests {
     #[cfg(target_arch = "wasm32")]
     use wasm_bindgen_test::*;
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     // Very basic test here, TODO: suggest better testing
     fn create_hash_test() {
         HSha256::create_hash(&vec![]);
@@ -64,7 +65,8 @@ mod tests {
         assert!(result > BigInt::zero());
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn create_hash_from_ge_test() {
         let point = GE::base_point2();
         let result1 = HSha256::create_hash_from_ge(&vec![&point, &GE::generator()]);

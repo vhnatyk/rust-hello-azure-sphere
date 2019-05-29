@@ -54,7 +54,11 @@ impl HomoELGamalProof {
             &T, &A3, &delta.G, &delta.H, &delta.Y, &delta.D, &delta.E,
         ]);
         // dealing with zero field element
-        let z1 = if w.x.clone() != FE::zero() { s1.clone() + w.x.clone() * e.clone() } else { s1.clone() };
+        let z1 = if w.x.clone() != FE::zero() {
+            s1.clone() + w.x.clone() * e.clone()
+        } else {
+            s1.clone()
+        };
         let z2 = s2.clone() + w.r.clone() * e.clone();
         s1.zeroize();
         s2.zeroize();
@@ -64,7 +68,13 @@ impl HomoELGamalProof {
     }
     pub fn verify(&self, delta: &HomoElGamalStatement) -> Result<(), ProofError> {
         let e = HSha256::create_hash_from_ge(&[
-            &self.T.clone(), &self.A3.clone(), &delta.G.clone(), &delta.H.clone(), &delta.Y.clone(), &delta.D.clone(), &delta.E.clone(),
+            &self.T.clone(),
+            &self.A3.clone(),
+            &delta.G.clone(),
+            &delta.H.clone(),
+            &delta.Y.clone(),
+            &delta.D.clone(),
+            &delta.E.clone(),
         ]);
         let z1H_plus_z2Y = delta.H.clone() * self.z1.clone() + delta.Y.clone() * self.z2.clone();
         let T_plus_eD = self.T.clone() + delta.D.clone() * e.clone();
@@ -80,15 +90,16 @@ impl HomoELGamalProof {
 
 #[cfg(test)]
 mod tests {
-    use std::error::Error;
     use curv::cryptographic_primitives::proofs::sigma_correct_homomorphic_elgamal_enc::*;
     use curv::cryptographic_primitives::proofs::PROOF_ERROR_DESCRIPTION;
     use curv::elliptic::curves::secp256_k1::{FE, GE};
+    use std::error::Error;
 
     #[cfg(target_arch = "wasm32")]
     use wasm_bindgen_test::*;
-    
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_correct_general_homo_elgamal() {
         let witness = HomoElGamalWitness {
             r: ECScalar::new_random(),
@@ -106,7 +117,8 @@ mod tests {
         assert!(proof.verify(&delta).is_ok());
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test] 
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_correct_homo_elgamal() {
         let witness = HomoElGamalWitness {
             r: FE::new_random(),
@@ -127,8 +139,9 @@ mod tests {
         let proof = HomoELGamalProof::prove(&witness, &delta);
         assert!(proof.verify(&delta).is_ok());
     }
-    
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_wrong_homo_elgamal() {
         // test for E = (r+1)G
         let witness = HomoElGamalWitness {

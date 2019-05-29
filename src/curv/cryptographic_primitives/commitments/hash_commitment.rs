@@ -14,11 +14,11 @@ use curv::arithmetic::num_bigint::BigInt;
 
 use super::traits::Commitment;
 use super::SECURITY_BITS;
+use cryptoxide::digest::Digest;
+use cryptoxide::sha3::Sha3;
 use curv::arithmetic::num_bigint::from;
 use curv::arithmetic::traits::Converter;
 use curv::arithmetic::traits::Samplable;
-use cryptoxide::digest::Digest;
-use cryptoxide::sha3::Sha3;
 
 //TODO:  using the function with BigInt's as input instead of string's makes it impossible to commit to empty message or use empty randomness
 impl Commitment<BigInt> for HashCommitment {
@@ -52,18 +52,19 @@ mod tests {
     use super::Commitment;
     use super::HashCommitment;
     use super::SECURITY_BITS;
+    use cryptoxide::digest::Digest;
+    use cryptoxide::sha3::Sha3;
     use curv::arithmetic::num_bigint::from;
     use curv::arithmetic::num_bigint::BigInt;
     use curv::arithmetic::traits::Converter;
     use curv::arithmetic::traits::Samplable;
     use num_traits::{One, Zero};
-    use cryptoxide::digest::Digest;
-    use cryptoxide::sha3::Sha3;
 
     #[cfg(target_arch = "wasm32")]
     use wasm_bindgen_test::*;
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_bit_length_create_commitment() {
         let hex_len = SECURITY_BITS;
         let mut ctr_commit_len = 0;
@@ -88,7 +89,8 @@ mod tests {
         assert!(ctr_blind_len / sample_size > 0.3);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_bit_length_create_commitment_with_user_defined_randomness() {
         let message = BigInt::sample(SECURITY_BITS);
         let (_commitment, blind_factor) = HashCommitment::create_commitment(&message);
@@ -97,7 +99,8 @@ mod tests {
         assert_eq!(commitment2.to_str_radix(16).len(), SECURITY_BITS / 4);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_random_num_generation_create_commitment_with_user_defined_randomness() {
         let message = BigInt::sample(SECURITY_BITS);
         let (commitment, blind_factor) = HashCommitment::create_commitment(&message);
@@ -106,7 +109,8 @@ mod tests {
         assert_eq!(commitment, commitment2);
     }
 
-    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)] #[test]
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
+    #[test]
     fn test_hashing_create_commitment_with_user_defined_randomness() {
         let mut digest = Sha3::sha3_256();
         let message = BigInt::one();
