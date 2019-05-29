@@ -60,6 +60,10 @@ mod tests {
     use curv::arithmetic::traits::Samplable;
     use num_traits::{One, Zero};
 
+    #[cfg(target_arch = "wasm32")]
+    use wasm_bindgen_test::*;
+
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
     #[test]
     fn test_bit_length_create_commitment() {
         let hex_len = SECURITY_BITS;
@@ -85,6 +89,7 @@ mod tests {
         assert!(ctr_blind_len / sample_size > 0.3);
     }
 
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
     #[test]
     fn test_bit_length_create_commitment_with_user_defined_randomness() {
         let message = BigInt::sample(SECURITY_BITS);
@@ -94,6 +99,7 @@ mod tests {
         assert_eq!(commitment2.to_str_radix(16).len(), SECURITY_BITS / 4);
     }
 
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
     #[test]
     fn test_random_num_generation_create_commitment_with_user_defined_randomness() {
         let message = BigInt::sample(SECURITY_BITS);
@@ -103,6 +109,7 @@ mod tests {
         assert_eq!(commitment, commitment2);
     }
 
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
     #[test]
     fn test_hashing_create_commitment_with_user_defined_randomness() {
         let mut digest = Sha3::sha3_256();

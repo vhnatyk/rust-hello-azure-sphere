@@ -6,6 +6,7 @@ use curv::arithmetic::num_bigint::BigInt;
 use curv::arithmetic::traits::ConvertFrom;
 pub mod integral;
 use num_traits::One;
+
 /// Encrypted message with type information.
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct EncodedCiphertext<T> {
@@ -49,6 +50,12 @@ where
     components
 }
 
+#[cfg(test)]
+#[cfg(target_arch = "wasm32")]
+use wasm_bindgen_test::*;
+
+#[cfg(test)]
+#[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
 #[test]
 fn test_pack() {
     let v: Vec<u64> = vec![1, 2, 3];

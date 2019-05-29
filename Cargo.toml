@@ -14,9 +14,14 @@ license = "GPL-3.0-or-later"
 [lib]
 crate-type = ["staticlib", "lib"]
 
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+rand = "0.6.5"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "0.2"
+rand = { version="0.6.5", features = ["wasm-bindgen"] }
 
 [dependencies]
-rand = "0.6"
 serde = "1.0"
 serde_derive = "1.0"
 serde_json = "1.0"
@@ -25,14 +30,16 @@ num-bigint = {version = "0.2.2" , features = ["serde","rand"]}
 num-integer = "0.1"
 num-traits = "0.2.6"
 
-
 bit-vec = "0.5"
 cryptoxide = "0.1.1"
 zeroize = "0.5.2"
 
 libsecp256k1 = "0.2.2"
 
-[dev-dependencies]
+[target.'cfg(target_arch = "wasm32")'.dev-dependencies]
+wasm-bindgen-test = "0.2"
+
+[target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
 criterion = "0.2"
 
 [[bench]]

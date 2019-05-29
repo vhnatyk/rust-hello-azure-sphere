@@ -15,6 +15,12 @@ version 3 of the License, or (at your option) any later version.
 
 @license GPL-3.0+ <https://github.com/KZen-networks/multi-party-ecdsa/blob/master/LICENSE>
 */
+#[cfg(target_arch = "wasm32")]
+extern crate wasm_bindgen;
+
+#[cfg(all(test, target_arch = "wasm32"))]
+extern crate wasm_bindgen_test;
+
 extern crate emerald_city;
 
 use emerald_city::curv::elliptic::curves::secp256_k1::FE;
@@ -23,6 +29,10 @@ use emerald_city::curv::elliptic::curves::traits::*;
 use emerald_city::gg_2018::mta::*;
 use emerald_city::paillier::*;
 
+#[cfg(target_arch = "wasm32")]
+use wasm_bindgen_test::*;
+
+#[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
 #[test]
 fn test_mta() {
     let alice_input: FE = ECScalar::new_random();

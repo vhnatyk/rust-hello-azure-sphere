@@ -46,3 +46,9 @@ pub enum ErrorKey {
 pub enum ErrorSS {
     VerifyShareError,
 }
+
+#[cfg(target_arch = "wasm32")]
+extern crate wasm_bindgen;
+
+#[cfg(all(test, target_arch = "wasm32"))]
+extern crate wasm_bindgen_test;

@@ -51,6 +51,11 @@ mod tests {
     use curv::elliptic::curves::traits::ECPoint;
     use curv::elliptic::curves::traits::ECScalar;
     use num_traits::{One, Zero};
+
+    #[cfg(target_arch = "wasm32")]
+    use wasm_bindgen_test::*;
+
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
     #[test]
     // Very basic test here, TODO: suggest better testing
     fn create_hash_test() {
@@ -60,6 +65,7 @@ mod tests {
         assert!(result > BigInt::zero());
     }
 
+    #[cfg_attr(target_arch = "wasm32", wasm_bindgen_test)]
     #[test]
     fn create_hash_from_ge_test() {
         let point = GE::base_point2();
