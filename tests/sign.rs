@@ -1,5 +1,12 @@
 #[macro_use]
+#[cfg(not(target_arch = "wasm32"))]
 extern crate criterion;
+
+#[cfg(target_arch = "wasm32")]
+extern crate wasm_bindgen;
+
+#[cfg(all(test, target_arch = "wasm32"))]
+extern crate wasm_bindgen_test;
 
 mod common;
 
@@ -30,6 +37,7 @@ fn test_sign_n8_t4_ttag6() {
     common::sign(4, 8, 6, vec![0, 1, 2, 4, 6, 7])
 }
 
+#[cfg(not(target_arch = "wasm32"))]
 pub mod bench {
     use criterion::Criterion;
 
@@ -57,4 +65,6 @@ pub mod bench {
     self::bench_sign_n3_t2_ttag3
     }
 }
+
+#[cfg(not(target_arch = "wasm32"))]
 criterion_main!(bench::sign);

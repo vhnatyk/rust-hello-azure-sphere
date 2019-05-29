@@ -1,5 +1,6 @@
 #![allow(non_snake_case)]
 
+#[cfg(not(target_arch = "wasm32"))]
 pub const BENCH_SAMPLE_SIZE: usize = 10;
 
 /*

@@ -15,6 +15,12 @@ version 3 of the License, or (at your option) any later version.
 
 @license GPL-3.0+ <https://github.com/KZen-networks/multi-party-ecdsa/blob/master/LICENSE>
 */
+#[cfg(target_arch = "wasm32")]
+extern crate wasm_bindgen;
+
+#[cfg(all(test, target_arch = "wasm32"))]
+extern crate wasm_bindgen_test;
+
 extern crate emerald_city;
 
 use emerald_city::curv::elliptic::curves::secp256_k1::FE;
