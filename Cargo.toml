@@ -32,3 +32,15 @@ zeroize = "0.5.2"
 
 libsecp256k1 = "0.2.2"
 
+[dev-dependencies]
+criterion = "0.2"
+
+[[bench]]
+name = "keygen"
+path = "tests/keygen.rs"
+harness = false
+
+[[bench]]
+name = "sign"
+path = "tests/sign.rs"
+harness = false
