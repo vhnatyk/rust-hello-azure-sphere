@@ -1,0 +1,5 @@
+[target.armv7-linux-eabi.dependencies]
+alloc = {}
+
+[target.arm-v7-none-eabi.dependencies]
+alloc = {}

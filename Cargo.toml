@@ -12,7 +12,11 @@ license = "GPL-3.0-or-later"
 
 
 [lib]
-crate-type = ["staticlib", "lib"]
+# crate-type = ["bin", "staticlib", "lib", "cdylib"]
+# crate-type = ["staticlib"]
+# crate-type = ["staticlib", "lib", "cdylib"]
+crate-type = ["lib"]
+# crate-type = ["bin"]
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 rand = "0.6.5"
@@ -36,6 +40,8 @@ zeroize = "0.5.2"
 
 libsecp256k1 = "0.2.2"
 
+trallocator = { path = "./trallocator" }
+
 [target.'cfg(target_arch = "wasm32")'.dev-dependencies]
 wasm-bindgen-test = "0.2"
 
@@ -44,10 +50,14 @@ criterion = "0.2"
 
 [[bench]]
 name = "keygen"
-path = "tests/keygen.rs"
+path = "tests/keygen-tn.rs"
 harness = false
 
 [[bench]]
 name = "sign"
-path = "tests/sign.rs"
+path = "tests/sign-tn.rs"
 harness = false
+
+[[bin]]
+name="bn1"
+path="tests/common/mod.rs"

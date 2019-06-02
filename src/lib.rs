@@ -13,6 +13,7 @@
 
     @license GPL-3.0+ <https://github.com/KZen-networks/multi-party-ecdsa/blob/master/LICENSE>
 */
+//#![feature(lang_items, start, libc)]
 
 #[macro_use]
 extern crate serde_derive;
