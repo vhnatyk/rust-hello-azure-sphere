@@ -501,7 +501,7 @@ fn main() {
 extern crate trallocator;
 use std::alloc::System;
 
-#[global_allocator]
+// #[global_allocator]
 static GLOBAL: trallocator::Trallocator<System> = trallocator::Trallocator::new(System);
 
 #[cfg(not(test))]
