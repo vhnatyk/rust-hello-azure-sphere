@@ -38,7 +38,7 @@ bit-vec = "0.6"
 cryptoxide = "0.1.1"
 zeroize = "0.9"
 
-libsecp256k1 = "0.2.2"
+libsecp256k1 = { version ="0.2.2" , git="https://github.com/vhnatyk/libsecp256k1-rs", branch="dev/vhnat/draft_shrinking_ecmult_acceleration_table" }
 
 trallocator = { path = "./trallocator" }
 
