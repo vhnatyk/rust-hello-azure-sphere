@@ -1,22 +1,18 @@
 [package]
-name = "emerald-city"
-version = "0.2.0"
-
-authors = [
-    "Omer <omer@kzencorp.com>"
-]
-description = "WASM/HW-friendly lightweight client application for threshold ECDSA"
-homepage = "https://github.com/KZen-networks"
-repository = "https://github.com/KZen-networks/emerald-city"
-license = "GPL-3.0-or-later"
-
+name = "rust_hello"
+version = "0.1.0"
+authors = ["vhnat@eruptiq <vhnatyk@gmail.com>"]
+edition = "2018"
 
 [lib]
-# crate-type = ["bin", "staticlib", "lib", "cdylib"]
+# name = "rust_hello"
+# crate-type = ["cdylib"]
+crate-type = ["cdylib", "staticlib"]
+# # crate-type = ["bin", "staticlib", "lib", "cdylib"]
 # crate-type = ["staticlib"]
-# crate-type = ["staticlib", "lib", "cdylib"]
-crate-type = ["lib"]
-# crate-type = ["bin"]
+# # crate-type = ["staticlib", "lib", "cdylib"]
+# crate-type = ["lib"]
+# # crate-type = ["bin"]
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 rand = "0.6"
@@ -24,6 +20,9 @@ rand = "0.6"
 [target.'cfg(target_arch = "wasm32")'.dependencies]
 wasm-bindgen = "0.2"
 rand = { version="0.6", features = ["wasm-bindgen"] }
+
+# [target.'cfg(target_arch = "armv7")'.dependencies]
+
 
 [dependencies]
 serde = "1.0"
@@ -38,31 +37,38 @@ bit-vec = "0.6"
 cryptoxide = "0.1.1"
 zeroize = "0.9"
 
-libsecp256k1 = { version ="0.2.2" , git="https://github.com/vhnatyk/libsecp256k1-rs", branch="dev/vhnat/draft_shrinking_ecmult_acceleration_table" }
+# libc = "0.2"
 
-trallocator = { path = "./trallocator" }
+libsecp256k1 = { version ="0.2.2" , git="https://github.com/vhnatyk/libsecp256k1-rs", branch="dev/vhnat/draft_shrinking_ecmult_acceleration_table_debug" }
+
+# trallocator = { path = "./trallocator" }
 
 [target.'cfg(target_arch = "wasm32")'.dev-dependencies]
 wasm-bindgen-test = "0.2"
 
-[target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
-criterion = "0.2"
+# [target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
+# criterion = "0.2"
 
-[[bench]]
-name = "keygen"
-path = "tests/keygen-tn.rs"
-harness = false
+# [[bench]]
+# name = "keygen"
+# path = "tests/keygen-tn.rs"
+# harness = false
 
-[[bench]]
-name = "sign"
-path = "tests/sign-tn.rs"
-harness = false
+# [[bench]]
+# name = "sign"
+# path = "tests/sign-tn.rs"
+# harness = false
 
-[[bin]]
-name="bn1"
-path="tests/common/mod.rs"
+# [[bin]]
+# name="bn1"
+# path="tests/common/mod.rs"
+
+[profile.dev]
+panic = 'abort'
+# lto = true
+# # codegen-units = 1
 
 [profile.release]
 panic = 'abort'
-lto = true
-# codegen-units = 1
+# lto = true
+# # codegen-units = 1

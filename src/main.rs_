@@ -1,0 +1,13 @@
+#![feature(start)]
+#![no_main]
+#![no_std]
+
+use core::panic::PanicInfo;
+
+mod woo;
+
+#[start]
+fn main(_argc: isize, _argv: *const *const u8) -> isize {
+    woo::hello_world();
+    0 as isize
+}
