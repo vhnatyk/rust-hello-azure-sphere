@@ -1,21 +1,15 @@
 @echo off
-setlocal
-set AZSPHERETOOLS=c:\Program Files (x86)\Microsoft Azure Sphere SDK\Tools\
-set SYSROOT=C:\Program Files (x86)\Microsoft Azure Sphere SDK\Sysroots\1+Beta1902
-set CCPATH=%SYSROOT%\tools\gcc
-set PATH=%PATH%;%AZSPHERETOOLS%;%CCPATH%
+REM setlocal
 
-REM set config=debug
-set config=release
+rd /S /Q %out_path%
+mkdir %out_path%
+copy target\%target%\%config%\%binName% %out_path%\app
 
-strip target\%target%\%config%\libemerald_city.a
+"%CCPATH%\strip" %out_path%\app
 
-rd target\approot\bin
-mkdir target\approot\bin
-copy target\%target%\%config%\libemerald_city.a target\approot\bin\app
-copy app_manifest.json target\approot
+copy app_manifest.json %app_root%
 
-azsphere image package-application --input target\approot --output target\manual.imagepackage --sysroot 1+Beta1811 -v
+azsphere image package-application --input %app_root% --output target\manual.imagepackage --sysroot %AZS_SDK% -v
 
 echo Now do this:
 echo azsphere device sideload delete
