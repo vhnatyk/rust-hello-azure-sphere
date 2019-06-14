@@ -4,6 +4,10 @@ version = "0.1.0"
 authors = ["vhnat@eruptiq <vhnatyk@gmail.com>"]
 edition = "2018"
 
+[features]
+std = []
+default = ["std"]
+
 [lib]
 # name = "rust_hello"
 # crate-type = ["cdylib"]
@@ -62,6 +66,10 @@ wasm-bindgen-test = "0.2"
 # [[bin]]
 # name="bn1"
 # path="tests/common/mod.rs"
+
+[[bin]]
+name="drun"
+path="src/drun.rs"
 
 [profile.dev]
 panic = 'abort'

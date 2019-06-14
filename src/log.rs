@@ -1,3 +1,4 @@
+#![cfg(not(feature = "std"))]
 #![allow(non_camel_case_types)]
 
 use alloc::format;
@@ -5,7 +6,7 @@ use core::marker::PhantomData;
 
 type c_char = i8;
 
-#[cfg(not(test))]
+#[cfg(not(feature = "std"))]
 extern "C" {
     fn Log_Debug(fmt: *const c_char) -> i32;
 }
