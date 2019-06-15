@@ -53,8 +53,8 @@ set action=build
 set pargo=cargo
 REM set pargo=xargo
 
-if "%config%"=="release" (set configp=--%config%) else (set configp=)
 
+if /I "%config%"=="release" (set configp=--release) else (set configp=)
 
 rem cleanup
 del /Q target\%target%\%config%\lib%libname%.*
