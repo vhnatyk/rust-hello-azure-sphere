@@ -10,7 +10,6 @@ extern crate alloc;
 #[cfg(not(feature = "std"))]
 mod allocator;
 
-
 #[cfg(not(feature = "std"))]
 #[cfg_attr(not(std), global_allocator)]
 static GLOBAL: allocator::MyAllocator = allocator::MyAllocator;
@@ -20,7 +19,7 @@ mod log;
 mod woo;
 
 #[cfg(test)]
-mod tests {   
+mod tests {
     #[test]
     fn it_works() {
         assert_eq!(2 + 2, 4);
