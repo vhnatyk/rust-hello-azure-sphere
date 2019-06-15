@@ -53,7 +53,7 @@ set action=build
 set pargo=cargo
 REM set pargo=xargo
 
-if "%config%"=="release" set configp=--%config%
+if "%config%"=="release" (set configp=--%config%) else (set configp=)
 
 
 rem cleanup
