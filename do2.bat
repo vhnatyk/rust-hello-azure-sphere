@@ -1,4 +1,4 @@
-call setenv
+call setenv %1
 
 REM set "AZURE_SDK_PATH=C:\Program Files (x86)\Microsoft Azure Sphere SDK"
 REM call "%AZURE_SDK_PATH%\InitializeCommandPrompt.cmd"
@@ -53,7 +53,7 @@ set action=build
 set pargo=cargo
 REM set pargo=xargo
 
-if %config%=="release" set configp=--%config%
+if "%config%"=="release" set configp=--%config%
 
 
 rem cleanup

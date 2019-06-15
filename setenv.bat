@@ -27,8 +27,10 @@ REM set gcc=gcc_wrapper
 
 set binname=bn1
 set libname=rust_hello
+set config=%1
+if "%config%"=="" set config=debug
 REM set config=release
-set config=debug
+REM set config=debug
 
 REM set target=arm-v7-none-eabi
 set target=armv7-unknown-linux-musleabihf
