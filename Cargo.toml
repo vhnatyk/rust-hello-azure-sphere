@@ -11,10 +11,10 @@ default = ["std"]
 [lib]
 # name = "rust_hello"
 # crate-type = ["cdylib"]
-crate-type = ["cdylib", "staticlib"]
+# crate-type = ["cdylib", "staticlib"]
 # # crate-type = ["bin", "staticlib", "lib", "cdylib"]
 # crate-type = ["staticlib"]
-# # crate-type = ["staticlib", "lib", "cdylib"]
+crate-type = ["staticlib", "lib"]
 # crate-type = ["lib"]
 # # crate-type = ["bin"]
 
