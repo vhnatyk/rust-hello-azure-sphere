@@ -40,7 +40,8 @@ pub extern "C" fn run_sign_test() -> f32 {
         let start = std::time::Instant::now();
         common::sign(t, n, ttag, s);
         let result = start.elapsed();
-        let seconds = result.as_secs() as f32;
+        let seconds = result.as_secs() as f32
+           + result.subsec_nanos() as f32 * 1e-9;
         println!("elapsed {:?}", seconds); // note :?
         seconds
     //}
@@ -71,7 +72,8 @@ pub extern "C" fn run_keygen_test() -> f32 {
         let start = std::time::Instant::now();
         common::keygen_t_n_parties(t, n);
         let result = start.elapsed();
-        let seconds = result.as_secs() as f32;
+        let seconds = result.as_secs() as f32
+           + result.subsec_nanos() as f32 * 1e-9;
         println!("elapsed {:?}", seconds); // note :?
         seconds
     //}
