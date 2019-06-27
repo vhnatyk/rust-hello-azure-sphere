@@ -26,7 +26,7 @@ pub extern "C" fn hello_world() {
 #[no_mangle]
 #[allow(dead_code)]
 #[cfg(not(test))]
-pub extern "C" fn run_sign_test() {
+pub extern "C" fn run_sign_test() -> f32 {
     println!("out from hello run_sign_test");
     //
     let t = 1;
@@ -36,11 +36,14 @@ pub extern "C" fn run_sign_test() {
 
     println!("running signing (t={},n={},ttag={})", t, n, ttag);
     // println!("memory used: {} bytes", GLOBAL.get());
-    {
+    //{
         let start = std::time::Instant::now();
         common::sign(t, n, ttag, s);
-        println!("elapsed {:?}", start.elapsed());
-    }
+        let result = start.elapsed();
+        let seconds = result.as_secs() as f32;
+        println!("elapsed {:?}", seconds); // note :?
+        seconds
+    //}
     //#[allow(unreachable_code)]
     //0
     // For some reason this does not print zero =/
@@ -55,7 +58,7 @@ use emerald_city_common::common;
 #[no_mangle]
 #[allow(dead_code)]
 #[cfg(not(test))]
-pub extern "C" fn run_keygen_test() {
+pub extern "C" fn run_keygen_test() -> f32 {
     println!("out from hello run_keygen_test");
 
     //
@@ -64,11 +67,14 @@ pub extern "C" fn run_keygen_test() {
 
     println!("running keygen (t={},n={})", t, n);
     // println!("memory used: {} bytes", GLOBAL.get());
-    {
+    //{
         let start = std::time::Instant::now();
         common::keygen_t_n_parties(t, n);
-        println!("elapsed {:?}", start.elapsed()); // note :?
-    }
+        let result = start.elapsed();
+        let seconds = result.as_secs() as f32;
+        println!("elapsed {:?}", seconds); // note :?
+        seconds
+    //}
     //#[allow(unreachable_code)]
     //0
     // For some reason this does not print zero =/
