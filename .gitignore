@@ -1,0 +1,14 @@
+#Added by cargo
+#
+#already existing elements are commented out
+
+
+**/*.rs.bk
+.vscode/
+target/
+obj/
+bin/
+.idea/
+.DS_Store
+.vs/
+**/*.user

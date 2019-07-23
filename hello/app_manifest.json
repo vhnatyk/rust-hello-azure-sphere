@@ -1,0 +1,12 @@
+{
+  "SchemaVersion": 1,
+  "Name": "rust_hello",
+  "ComponentId": "3cc64349-6251-4f4d-a3b6-a3f8d430c645",
+  "EntryPoint": "/bin/app",
+  "CmdArgs": [],
+  "Capabilities": {
+    "Gpio": [ "$MT3620_RDB_LED1_RED", "$MT3620_RDB_LED1_GREEN" ],
+    "Uart": []
+  },
+  "ApplicationType": "Default"
+}

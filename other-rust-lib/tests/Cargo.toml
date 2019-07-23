@@ -1,0 +1,26 @@
+# Rust hello from C for Azure Sphere
+# Copyright 2019 by Vitaliy Hnatyk @ Eruptiq
+# @license CC BY 4.0+ <https://creativecommons.org/licenses/by/4.0/legalcode.txt>
+
+[package]
+name = "other-lib-common"
+version = "0.1.0"
+
+authors = [
+    "Vitaliy Hnatyk <vhnatyk@gmail.com>"
+]
+description = "example of multiple library dependencies for Azure Sphere sample in Rust"
+homepage = "https://github.com/vhnatyk"
+repository = "https://github.com/vhnatyk/rust-hello-azure-sphere"
+license = "CC BY 4.0+"
+
+
+[lib]
+# crate-type = ["bin", "staticlib", "lib", "cdylib"]
+# crate-type = ["staticlib"]
+# crate-type = ["staticlib", "lib", "cdylib"]
+crate-type = ["staticlib", "lib"]
+# crate-type = ["dylib"]
+# crate-type = ["lib"]
+# crate-type = ["bin"]
+path = "lib.rs"

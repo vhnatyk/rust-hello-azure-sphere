@@ -1,0 +1,63 @@
+# Rust hello from C for Azure Sphere
+# Copyright 2019 by Vitaliy Hnatyk @ Eruptiq
+# @license CC BY 4.0+ <https://creativecommons.org/licenses/by/4.0/legalcode.txt>
+
+[package]
+name = "rust_hello"
+version = "0.1.0"
+authors = ["vhnat@eruptiq <vhnatyk@gmail.com>"]
+edition = "2018"
+license = "CC BY 4.0+"
+
+[features]
+std = []
+default = ["std"]
+
+[lib]
+# name = "rust_hello"
+# crate-type = ["cdylib"]
+# crate-type = ["cdylib", "staticlib"]
+# # crate-type = ["bin", "staticlib", "lib", "cdylib"]
+# crate-type = ["staticlib"]
+crate-type = ["staticlib", "lib"]
+# crate-type = ["lib"]
+# # crate-type = ["bin"]
+
+# [target.'cfg(target_arch = "armv7")'.dependencies]
+
+[dependencies]
+#ring = { version="0.1" } #example of published crate dependency
+#ring = { version="0.1" git="https://github.come/your-fork" } #example of forked dependency
+other-lib-common = { version = "0.1", path = "../other-rust-lib/tests/"}
+
+
+# trallocator = { path = "./trallocator" }
+
+# [[bench]]
+# name = "keygen"
+# path = "tests/keygen.rs"
+# harness = false
+
+# [[bench]]
+# name = "sign"
+# path = "tests/sign.rs"
+# harness = false
+
+# [[bin]]
+# name="bn1"
+# path="tests/common/mod.rs"
+
+[[bin]]
+name="drun"
+path="src/drun.rs"
+
+[profile.dev]
+# panic = 'abort'
+# lto = true
+# codegen-units = 1
+
+[profile.release]
+# panic = 'abort'
+# lto = true
+# codegen-units = 1
+
