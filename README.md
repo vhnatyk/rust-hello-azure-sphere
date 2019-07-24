@@ -6,7 +6,7 @@ Sample project to demonstrate development with Rust on Azure Sphere using Visual
 
 * Azure Sphere SDK (2+Beta1905) installed to default path (`C:\Program Files (x86)\Microsoft Azure Sphere SDK`)
 
-* Rust target **armv7-unknown-linux-musleabihf** installed. If you don't add it with command from **cmd**
+* Rust target **armv7-unknown-linux-musleabihf** must be installed. If you don't have it - add with command from **cmd**
 
         rustup target add armv7-unknown-linux-musleabihf
 
